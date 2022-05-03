@@ -38,6 +38,7 @@ public class CustomerEntity implements Serializable {
     private String fullName;
 
     @Column(nullable = false)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
 
     private String email;
