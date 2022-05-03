@@ -1,1 +1,45 @@
+application:
+  title: '@project.artifactId@'
+  version: '@project.version@'
+  url:
+    documentation: http://localhost:8080/swagger-ui
+    health: http://localhost:8080/actuator/health
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - refresh
+spring:
+  datasource:
+    url: jdbc:postgresql://customers_database:5432/customers
+    username: builders
+    password: builders
+  flyway:
+    enabled: on
+    table: flyway_history
+  jpa:
+    hibernate:
+      ddlAuto: validate
+    openInView: true
+    properties:
+      hibernate:
+        formatSql: true
+        jdbc:
+          lob:
+            nonContextualCreation: true
+      showSql: true
+  main:
+    bannerMode: off
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  output:
+    ansi:
+      enabled: always
