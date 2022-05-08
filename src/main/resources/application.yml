@@ -4,7 +4,6 @@ application:
   url:
     documentation: http://localhost:8080/swagger-ui
     health: http://localhost:8080/actuator/health
-
 management:
   endpoint:
     health:
@@ -17,8 +16,14 @@ management:
           - info
           - refresh
 spring:
+  cache:
+    type: redis
+  data:
+    redis:
+      repositories:
+        enabled: false
   datasource:
-    url: jdbc:postgresql://customers_database:5432/customers
+    url: jdbc:postgresql://localhost:5432/customers
     username: builders
     password: builders
   flyway:
@@ -43,3 +48,6 @@ spring:
   output:
     ansi:
       enabled: always
+  redis:
+    host: localhost
+    password: builders
