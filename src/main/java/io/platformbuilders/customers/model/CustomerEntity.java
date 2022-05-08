@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -14,13 +15,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.GenerationType.AUTO;
+import static org.hibernate.annotations.FetchMode.SUBSELECT;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -49,13 +53,10 @@ public class CustomerEntity implements Serializable {
 
     private String phoneNumber;
 
-    @JoinTable(
-            inverseJoinColumns = @JoinColumn(name = "address_id"),
-            joinColumns = @JoinColumn(name = "customer_id"),
-            name = "customers_addresses")
-    @ManyToMany(fetch = EAGER)
+    @Fetch(SUBSELECT)
+    @OneToMany(fetch = EAGER, mappedBy = "resident", cascade = ALL, orphanRemoval = true)
     @ToString.Exclude
-    private Set<AddressEntity> addresses;
+    private Set<AddressEntity> addresses = new HashSet<>();
 
     @Column(nullable = false, updatable = false)
     @CreatedDate

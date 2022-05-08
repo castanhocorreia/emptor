@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,19 +19,10 @@ import static io.platformbuilders.customers.util.PropertyRejector.rejectEmptyVal
 @RequiredArgsConstructor
 @Service
 public class CustomerService {
-    private final AddressService addressService;
     private final CustomerRepository customerRepository;
 
     public CustomerEntity create(CustomerEntity customer) {
-        var addresses = new HashSet<>(customer.getAddresses());
-        customer.getAddresses().clear();
-        addresses.forEach(
-                address ->
-                        customer.getAddresses()
-                                .add(
-                                        addressService
-                                                .retrieve(address.getId())
-                                                .orElse(addressService.create(address))));
+        customer.getAddresses().forEach(address -> address.setResident(customer));
         return customerRepository.save(customer);
     }
 
@@ -50,7 +40,25 @@ public class CustomerService {
         var customer = retrieve(update.getId());
         BeanUtils.copyProperties(
                 update, customer, ArrayUtils.addAll(rejectEmptyValues(update), "addresses"));
-        update.getAddresses().forEach(addressService::modify);
+        update.getAddresses()
+                .forEach(
+                        addressUpdate ->
+                                customer.getAddresses().stream()
+                                        .filter(
+                                                address ->
+                                                        address.getId()
+                                                                .equals(addressUpdate.getId()))
+                                        .findFirst()
+                                        .ifPresentOrElse(
+                                                address ->
+                                                        BeanUtils.copyProperties(
+                                                                addressUpdate,
+                                                                address,
+                                                                rejectEmptyValues(addressUpdate)),
+                                                () -> {
+                                                    addressUpdate.setResident(customer);
+                                                    customer.getAddresses().add(addressUpdate);
+                                                }));
         return customerRepository.save(customer);
     }
 

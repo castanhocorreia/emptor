@@ -28,6 +28,11 @@ public class AddressEntity implements Serializable {
     @GeneratedValue(strategy = AUTO)
     private UUID id;
 
+    @JoinColumn(name = "resident_id")
+    @ManyToOne(optional = false)
+    @ToString.Exclude
+    private CustomerEntity resident;
+
     @Column(nullable = false)
     private String postCode;
 
