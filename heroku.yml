@@ -8,4 +8,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: /usr/bin/java -jar customers.jar -Dspring.profiles.active=prod
+  web: customers.jar -Dspring.profiles.active=prod
