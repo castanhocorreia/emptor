@@ -12,9 +12,9 @@ Feature: Customer
           "email": "me@castanhocorreia.com",
           "addresses": [
             {
-              "streetName": "Celika Nogueira",
+              "streetName": "Dorival Caymmi",
               "city": "Salvador",
-              "postCode": "41310200",
+              "postCode": "41635150",
               "state": "BA",
               "country": "BR"
             }
@@ -44,7 +44,7 @@ Feature: Customer
       """
       {
         "id": "#(id)",
-        "fullName": "João Vitor dos Santos Correia",
+        "fullName": "João Castanho Correia",
         "addresses": [
             {
                 "id": "#(address)",
@@ -56,7 +56,7 @@ Feature: Customer
       """
     When method PUT
     Then status 200
-    And match response.fullName == "João Vitor dos Santos Correia"
+    And match response.fullName == "João Castanho Correia"
     And match response.addresses[0].state == "Bahia"
     And match response.addresses[0].country == "Brazil"
 
@@ -72,16 +72,15 @@ Feature: Customer
     Given request
       """
       {
-          "fullName": "João Correia",
-          "birthDate": "1998-07-02",
-          "email": "me@castanhocorreia.com",
+          "fullName": "Alejandra Callisti",
+          "birthDate": "1984-11-22",
+          "email": "me@alejandracallisti.com",
           "addresses": [
             {
-              "streetName": "Celika Nogueira",
-              "city": "Salvador",
-              "postCode": "41310200",
-              "state": "BA",
-              "country": "BR"
+              "streetName": "Juan de Garay",
+              "city": "Buenos Aires",
+              "postCode": "C1150",
+              "country": "Argentina"
             }
           ]
       }
@@ -89,7 +88,7 @@ Feature: Customer
     When method POST
     Then status 201
 
-    Given param fullName = "Correia"
+    Given param fullName = "Callisti"
     When method GET
     Then status 200
     And match response.content == "#[1]"
@@ -99,13 +98,13 @@ Feature: Customer
     Then status 200
     And match response.content == "#[0]"
 
-    Given param fullName = "Correia"
-    Given param birthDate = "1998-07-02"
+    Given param fullName = "Callisti"
+    Given param birthDate = "1984-11-22"
     When method GET
     Then status 200
     And match response.content == "#[1]"
 
-    Given param postCode = "41310200"
+    Given param postCode = "C1150"
     When method GET
     Then status 200
     And match response.content == "#[1]"

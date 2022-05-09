@@ -18,7 +18,7 @@ public class AddressRecordData {
 
     @NotEmpty() private String city;
 
-    @NotEmpty() private String state;
+    private String state;
 
     @NotEmpty() private String country;
 }

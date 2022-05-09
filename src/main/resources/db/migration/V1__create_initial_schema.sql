@@ -8,7 +8,7 @@ CREATE TABLE addresses
     street_name   VARCHAR(255) NOT NULL,
     street_number VARCHAR(255),
     city          VARCHAR(255) NOT NULL,
-    state         VARCHAR(255) NOT NULL,
+    state         VARCHAR(255),
     country       VARCHAR(255) NOT NULL,
     CONSTRAINT pk_addresses PRIMARY KEY (id)
 );

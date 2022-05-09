@@ -65,7 +65,7 @@ There is only one unit test in the code, which is to map age based on the `birth
 ### Requisites
 
 - Docker version 20 or higher and docker-compose
-- Ports 5432, 6379 and 8080
+- Ports 5432 and 8080 unused
 
 ### Installation
 
