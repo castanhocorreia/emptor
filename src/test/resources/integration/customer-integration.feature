@@ -1,7 +1,7 @@
 Feature: Customer
 
   Background:
-    * url "http://localhost:8080/customers/"
+    * url "http://localhost:8080/customers"
 
   Scenario: create, index, retrieve, modify and destroy customers
     Given request
@@ -67,6 +67,53 @@ Feature: Customer
     Given path id
     When method GET
     Then status 404
+
+  Scenario: retrieve customers page based on parameters
+    Given request
+      """
+      {
+          "fullName": "João Correia",
+          "birthDate": "1998-07-02",
+          "email": "me@castanhocorreia.com",
+          "addresses": [
+            {
+              "streetName": "Celika Nogueira",
+              "city": "Salvador",
+              "postCode": "41310200",
+              "state": "BA",
+              "country": "BR"
+            }
+          ]
+      }
+      """
+    When method POST
+    Then status 201
+
+    Given param fullName = "Correia"
+    When method GET
+    Then status 200
+    And match response.content == "#[1]"
+
+    Given param fullName = "Paiva"
+    When method GET
+    Then status 200
+    And match response.content == "#[0]"
+
+    Given param fullName = "Correia"
+    Given param birthDate = "1998-07-02"
+    When method GET
+    Then status 200
+    And match response.content == "#[1]"
+
+    Given param postCode = "41310200"
+    When method GET
+    Then status 200
+    And match response.content == "#[1]"
+
+    Given param postCode = "13418110"
+    When method GET
+    Then status 200
+    And match response.content == "#[0]"
 
   Scenario: retrieve and destroy customer with invalid id
     Given path '00000000-0000-0000-0000-000000000000'

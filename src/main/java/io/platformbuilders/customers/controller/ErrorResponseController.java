@@ -7,7 +7,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,17 +18,16 @@ import static org.springframework.http.HttpStatus.NOT_FOUND;
 @RestControllerAdvice
 @Slf4j
 public class ErrorResponseController {
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler({HttpMessageNotReadableException.class, IllegalArgumentException.class})
     @ResponseStatus(BAD_REQUEST)
-    private ResponseEntity<String> handleHttpMessageNotReadableException(
-            HttpMessageNotReadableException exception, ServletWebRequest request) {
+    private ResponseEntity<String> handleIllegalArgumentException(RuntimeException exception) {
         return ResponseEntity.status(BAD_REQUEST).body(exception.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(BAD_REQUEST)
     private ResponseEntity<Map<String, String>> handleMethodArgumentNotValidException(
-            MethodArgumentNotValidException exception, ServletWebRequest request) {
+            MethodArgumentNotValidException exception) {
         Map<String, String> errors = new HashMap<>();
         exception
                 .getBindingResult()
@@ -40,8 +38,7 @@ public class ErrorResponseController {
 
     @ExceptionHandler(NoSuchElementException.class)
     @ResponseStatus(NOT_FOUND)
-    private ResponseEntity<Void> handleNoSuchElementException(
-            NoSuchElementException exception, ServletWebRequest request) {
+    private ResponseEntity<Void> handleNoSuchElementException() {
         return ResponseEntity.status(NOT_FOUND).build();
     }
 }
