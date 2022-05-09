@@ -36,6 +36,7 @@ public class CustomerControllerImpl implements CustomerController {
     public ResponseEntity<CustomerViewData> create(
             @RequestBody @Validated CustomerRecordData customerData) {
         var customerEntity = customerService.create(customerMapper.fromData(customerData));
+        log.info("POST request for customer {}", customerData);
         return ResponseEntity.status(CREATED).body(customerMapper.fromEntity(customerEntity));
     }
 
@@ -44,6 +45,7 @@ public class CustomerControllerImpl implements CustomerController {
             CustomerSpecification spec,
             @PageableDefault(sort = "createdDate", direction = ASC) Pageable pageable) {
         var customerPage = customerService.index(spec, pageable);
+        log.info("GET request for index customers with {}", spec);
         return ResponseEntity.status(OK).body(customerPage.map(customerMapper::fromEntity));
     }
 
@@ -51,6 +53,7 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public ResponseEntity<CustomerViewData> retrieve(@PathVariable UUID id) {
         var customerEntity = customerService.retrieve(id);
+        log.info("GET request for customer with id {}", id);
         return ResponseEntity.status(OK).body(customerMapper.fromEntity(customerEntity));
     }
 
@@ -59,6 +62,7 @@ public class CustomerControllerImpl implements CustomerController {
     public ResponseEntity<CustomerViewData> modify(
             @RequestBody @Validated CustomerUpdateData customerData) {
         var customerEntity = customerService.update(customerMapper.fromData(customerData));
+        log.info("PUT request for customer {}", customerData);
         return ResponseEntity.status(OK).body(customerMapper.fromEntity(customerEntity));
     }
 
@@ -66,6 +70,7 @@ public class CustomerControllerImpl implements CustomerController {
     @Override
     public ResponseEntity<Void> destroy(@PathVariable UUID id) {
         customerService.destroy(id);
+        log.info("DELETE request for customer with id {}", id);
         return ResponseEntity.status(OK).build();
     }
 }
