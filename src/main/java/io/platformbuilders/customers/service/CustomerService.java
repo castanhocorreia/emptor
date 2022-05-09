@@ -66,7 +66,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
-    @CacheEvict(value = "customer", key = "id")
+    @CacheEvict(value = "customer", key = "#id")
     public void destroy(UUID id) {
         var customer = retrieve(id);
         customerRepository.delete(customer);
