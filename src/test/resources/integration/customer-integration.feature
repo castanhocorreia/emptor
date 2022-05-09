@@ -115,7 +115,16 @@ Feature: Customer
     Then status 200
     And match response.content == "#[0]"
 
-  Scenario: retrieve and destroy customer with invalid id
+  Scenario: create customers with invalid information
+    Given request {}
+    When method POST
+    Then status 400
+    And match response.addresses == "must not be null"
+    And match response.birthDate == "must not be null"
+    And match response.fullName == "must not be blank"
+    And match response.email == "must not be null"
+
+  Scenario: retrieve and destroy customers with invalid id
     Given path '00000000-0000-0000-0000-000000000000'
     When method GET
     Then status 404
