@@ -16,12 +16,6 @@ management:
           - info
           - refresh
 spring:
-  cache:
-    type: redis
-  data:
-    redis:
-      repositories:
-        enabled: false
   datasource:
     url: jdbc:postgresql://localhost:5432/customers
     username: builders
@@ -48,6 +42,3 @@ spring:
   output:
     ansi:
       enabled: always
-  redis:
-    host: localhost
-    password: builders

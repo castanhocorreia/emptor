@@ -6,6 +6,8 @@ import io.platformbuilders.customers.repository.CustomerSpecification;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -30,12 +32,14 @@ public class CustomerService {
         return customerRepository.findAll(spec, pageable);
     }
 
+    @Cacheable(value = "customer", key = "#id")
     public CustomerEntity retrieve(UUID id) {
         return customerRepository
                 .findById(Objects.requireNonNullElse(id, new UUID(0, 0)))
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    @CacheEvict(value = "customer", key = "#update.id")
     public CustomerEntity update(CustomerEntity update) {
         var customer = retrieve(update.getId());
         BeanUtils.copyProperties(
@@ -62,6 +66,7 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    @CacheEvict(value = "customer", key = "id")
     public void destroy(UUID id) {
         var customer = retrieve(id);
         customerRepository.delete(customer);
