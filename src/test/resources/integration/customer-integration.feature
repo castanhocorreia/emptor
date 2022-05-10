@@ -1,7 +1,7 @@
 Feature: Customer
 
   Background:
-    * url "http://localhost:8080/customers"
+    * url "http://admin:builders@localhost:8080/customers"
 
   Scenario: create, index, retrieve, modify and destroy customers
     Given request

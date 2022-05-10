@@ -17,7 +17,7 @@ management:
           - refresh
 spring:
   datasource:
-    url: jdbc:postgresql://customers-database:5432/customers
+    url: jdbc:postgresql://localhost:5432/customers
     username: builders
     password: builders
   flyway:
