@@ -1,0 +1,236 @@
+{
+	"info": {
+		"_postman_id": "ff278797-1b29-4e34-82b9-b842fe85a858",
+		"name": "customers",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "builders",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"fullName\": \"Alejandra Callisti\",\n    \"birthDate\": \"1984-11-22\",\n    \"email\": \"me@alejandracallisti.com\",\n    \"addresses\": [\n    {\n        \"streetName\": \"Juan de Garay\",\n        \"city\": \"Buenos Aires\",\n        \"postCode\": \"C1150\",\n        \"country\": \"Argentina\"\n    }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://io-platformbuilders-customers.herokuapp.com/customers",
+					"protocol": "https",
+					"host": [
+						"io-platformbuilders-customers",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "index",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "builders",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://io-platformbuilders-customers.herokuapp.com/customers",
+					"protocol": "https",
+					"host": [
+						"io-platformbuilders-customers",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customers"
+					],
+					"query": [
+						{
+							"key": "fullName",
+							"value": "Correia",
+							"disabled": true
+						},
+						{
+							"key": "birthDate",
+							"value": "1998-07-02",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "me@castanhocorreia.com",
+							"disabled": true
+						},
+						{
+							"key": "postCode",
+							"value": "41635150",
+							"disabled": true
+						},
+						{
+							"key": "city",
+							"value": "Salvador",
+							"disabled": true
+						},
+						{
+							"key": "state",
+							"value": "Bahia",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "retrieve",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "builders",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://io-platformbuilders-customers.herokuapp.com/customers/668ba414-8493-4f6d-891b-f6e8b333d3cd",
+					"protocol": "https",
+					"host": [
+						"io-platformbuilders-customers",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customers",
+						"668ba414-8493-4f6d-891b-f6e8b333d3cd"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modify",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "builders",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"668ba414-8493-4f6d-891b-f6e8b333d3cd\",\n\"fullName\": \"João Castanho Correia\",\n\"addresses\": [\n        {\n            \"id\": \"44dec552-959c-47d9-8177-40781a8d3e81\",\n            \"streetNumber\": \"96\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://io-platformbuilders-customers.herokuapp.com/customers",
+					"protocol": "https",
+					"host": [
+						"io-platformbuilders-customers",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "destroy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "builders",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://io-platformbuilders-customers.herokuapp.com/customers/668ba414-8493-4f6d-891b-f6e8b333d3cd",
+					"protocol": "https",
+					"host": [
+						"io-platformbuilders-customers",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customers",
+						"668ba414-8493-4f6d-891b-f6e8b333d3cd"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

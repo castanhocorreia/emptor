@@ -3,6 +3,22 @@
   <h6 align="center">Application built for the Platform Builders challenge</h6>
 </div>
 
+## TL;DR
+
+You can make requests directly to the service hosted on Heroku via the link below:
+
+`https://admin:builders@io-platformbuilders-customers.herokuapp.com/customers`
+
+This application uses basic authentication, and can be authorized using username `admin` and password `builders`
+
+You can view the API documentation provided by Swagger at this [link](https://io-platformbuilders-customers.herokuapp.com/swagger-ui.html)
+
+**Be aware that this application is powered by a free web dyno from Heroku, which may result in the application sleeping after a certain period of inactivity. So maybe your first request may take longer than expected**
+
+If something goes wrong with the above solution, please see the option to run the application via docker-compose, at the end of this README
+
+In this repository there is the file `customers.postman_collection.json`. There are options in the Params tab in the `index` request
+
 ## About
 
 This is an application built for the technical challenge of Senior Java Developer position at [Platform Builders](https://platformbuilders.io/)
@@ -41,6 +57,8 @@ I used Karate out of personal preference, as I think it's an amazing (however, l
 
 There is only one unit test in the code, which is to map age based on the `birthDate` field. The main focus was on end-to-end integration tests, through Karate, where all contact possibilities via API are mapped
 
+Finally, I chose Heroku as the host for the application due to simplicity and a generous free plan. And because the application is in a cloud environment, I decided to implement a simple basic authentication solution through Spring Security, to avoid such easy exposure
+
 ## Technologies
 
 - [Apache Maven](https://maven.apache.org/)
@@ -57,6 +75,7 @@ There is only one unit test in the code, which is to map age based on the `birth
 - [Spring Boot](https://spring.io/projects/spring-boot)
 - [Spring Data](https://spring.io/projects/spring-data)
 - [Spring Framework](https://spring.io/projects/spring-framework)
+- [Spring Security](https://spring.io/projects/spring-security)
 - [Swagger](https://swagger.io/)
 - [Testcontainers](https://www.testcontainers.org/)
 
