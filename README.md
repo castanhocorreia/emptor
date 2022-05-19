@@ -3,22 +3,6 @@
   <h6 align="center">Application built for the Platform Builders challenge</h6>
 </div>
 
-## TL;DR
-
-You can make requests directly to the service hosted on Heroku via the link below:
-
-`https://admin:builders@io-platformbuilders-customers.herokuapp.com/customers`
-
-This application uses basic authentication, and can be authorized using username `admin` and password `builders`
-
-You can view the API documentation provided by Swagger at this [link](https://io-platformbuilders-customers.herokuapp.com/swagger-ui.html)
-
-**Be aware that this application is powered by a free web dyno from Heroku, which may result in the application sleeping after a certain period of inactivity. So maybe your first request may take longer than expected**
-
-If something goes wrong with the above solution, please see the option to run the application via docker-compose, at the end of this README
-
-In this repository there is the file `customers.postman_collection.json`. There are options in the Params tab in the `index` request
-
 ## About
 
 This is an application built for the technical challenge of Senior Java Developer position at [Platform Builders](https://platformbuilders.io/)
